@@ -1,0 +1,53 @@
+{
+  "servers": [
+    {
+      "id": "local_demo",
+      "endpoint": "http://127.0.0.1:4101/mcp",
+      "allowTools": ["echo", "get_time"],
+      "groups": ["engineering"],
+      "timeoutMs": 5000
+    },
+    {
+      "id": "team_docs",
+      "endpoint": "https://docs.internal.example/mcp",
+      "allowTools": ["search_documents", "read_document"],
+      "groups": ["engineering", "support"],
+      "credentialEnv": "DOCS_MCP_TOKEN",
+      "timeoutMs": 10000
+    },
+    {
+      "id": "issue_tracker",
+      "endpoint": "https://issues.example.com/mcp",
+      "allowTools": ["search_issues", "get_issue", "create_issue"],
+      "groups": ["engineering"],
+      "credentialEnv": "ISSUES_MCP_TOKEN",
+      "headersFromEnv": {
+        "X-Workspace-Id": "ISSUES_WORKSPACE_ID",
+        "X-Client-Id": "ISSUES_CLIENT_ID"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "id": "finance_reports",
+      "endpoint": "https://finance.internal.example/mcp",
+      "allowTools": ["list_reports", "get_report"],
+      "groups": ["finance"],
+      "credentialEnv": "FINANCE_MCP_TOKEN",
+      "timeoutMs": 30000
+    },
+    {
+      "id": "local_files",
+      "transport": "stdio",
+      "command": "/absolute/path/to/node",
+      "args": ["/absolute/path/to/files-mcp-server.js"],
+      "cwd": "/absolute/path/to/project",
+      "envFromEnv": {
+        "FILES_API_KEY": "LOCAL_FILES_API_KEY",
+        "FILES_WORKSPACE": "LOCAL_FILES_WORKSPACE"
+      },
+      "allowTools": ["list_files", "read_file"],
+      "groups": ["engineering"],
+      "timeoutMs": 10000
+    }
+  ]
+}
