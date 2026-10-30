@@ -1,6 +1,24 @@
 # mcpx Gateway
 
-An MCP Gateway that connects Streamable HTTP and stdio MCP servers. Clients can connect to its HTTP `/mcp` endpoint or launch it as a stdio MCP server. Both modes expose `search_tools`, `get_tool`, and `call_tool`. It uses MCP TypeScript SDK 1.32.2 and the `2025-11-25` protocol family supported by that SDK.
+An MCP Gateway that connects Streamable HTTP and stdio MCP servers. Clients can connect to its HTTP `/mcp` endpoint or launch it as a stdio MCP server. Both modes expose `search_tools`, `get_tool`, and `call_tool`. It can run from this checkout or through `npx` using the GitHub repository. It uses MCP TypeScript SDK 1.32.2 and the `2025-11-25` protocol family supported by that SDK.
+
+## Run with npx
+
+Use the GitHub repository directly; the package has not been published to the npm registry:
+
+```bash
+npx -y github:winai543/mcpx-gateway --help
+npx -y github:winai543/mcpx-gateway stdio --manifest /absolute/path/to/servers.json --groups engineering
+```
+
+`stdio` is the default mode, so it can be omitted. For HTTP mode, set `MCPX_ACCESS` and run:
+
+```bash
+export MCPX_ACCESS='{"local-token":{"id":"me","groups":["engineering"]}}'
+npx -y github:winai543/mcpx-gateway http --manifest /absolute/path/to/servers.json
+```
+
+For an MCP host, set `command` to `npx` and `args` to `["-y", "github:winai543/mcpx-gateway", "stdio", "--manifest", "/absolute/path/to/servers.json", "--groups", "engineering"]`. Supply any upstream credentials through the host's environment settings. The Gateway keeps stdout reserved for MCP messages in stdio mode; errors go to stderr. Downloading from GitHub and installing dependencies requires network access the first time.
 
 ## Getting started
 
@@ -84,7 +102,7 @@ For a client that supports remote MCP, use `http://127.0.0.1:4100/mcp` and the H
 
 Set `MCPX_MANIFEST` to an absolute path and `MCPX_STDIO_GROUPS` to the groups this local client may access. The Gateway uses the same manifest, tool discovery, and call routing as HTTP mode. It does not require `MCPX_ACCESS` because the local MCP host launches the process and owns its stdin/stdout connection.
 
-Example MCP host configuration (replace both absolute paths):
+Example MCP host configuration using this checkout (replace both absolute paths):
 
 ```json
 {

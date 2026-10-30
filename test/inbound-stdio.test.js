@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport, getDefaultEnvironment } from '@modelcontextprotocol/sdk/client/stdio.js';
 
-const gatewayEntry = fileURLToPath(new URL('../src/stdio.js', import.meta.url));
+const gatewayEntry = fileURLToPath(new URL('../bin/mcpx-gateway.js', import.meta.url));
 const upstreamEntry = fileURLToPath(new URL('./fixtures/stdio-server.js', import.meta.url));
 const parse = result => JSON.parse(result.content[0].text);
 

@@ -1,6 +1,6 @@
 # MCP Gateway Design: Register, Discover, and Call Tools Across MCP Servers
 
-Status: architecture and roadmap; an initial implementation is in `src/` · October 30, 2026
+Status: architecture and roadmap; an initial implementation is in `src/` with an npx entry point in `bin/` · October 30, 2026
 
 ## Goal
 
@@ -46,7 +46,7 @@ flowchart LR
 
 The Gateway is an **MCP server** to inbound clients and an **MCP client** to each upstream. It uses the MCP SDK and the appropriate transport on each side. It is not a transparent HTTP reverse proxy: it must handle tool naming, authorization, legacy sessions, streamed results, and errors. The current stdio entry point trusts the launching host and uses `MCPX_STDIO_GROUPS` to scope visible tools.
 
-The diagram includes planned components. The current implementation uses a JSON manifest, environment variables for credentials, and a JSONL audit log. It starts a new stdio process for each listing or call; a long-lived process manager is future work.
+The diagram includes planned components. The current implementation uses a JSON manifest, environment variables for credentials, and a JSONL audit log. Its CLI runs in stdio or HTTP mode and can be installed through `npx` from the GitHub repository. It starts a new stdio process for each listing or call; a long-lived process manager is future work.
 
 ## Gateway tool contracts
 

@@ -3,6 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "mcpx-gateway": "./bin/mcpx-gateway.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "config/servers.example.json",
+    "README.md",
+    "MCP_GATEWAY_DESIGN.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "node src/dev.js",
     "start": "node src/server.js",
